@@ -1,0 +1,243 @@
+/* Static Aurora — an Obsidian theme by AshOtis, after the "Aurora" look of Static FM.
+ * Warm dark glass over slowly drifting glows (dark), and a Windows 2000 classic look (light).
+ * Optional settings via the Style Settings plugin. With Static FM 2.1+ playing, the glows take on your noise colours. */
+
+/* @settings
+name: Static Aurora
+id: static-aurora
+settings:
+  -
+    id: sa-still
+    title: Still background
+    description: Stop the glows drifting.
+    type: class-toggle
+    default: false
+    addCommand: true
+  -
+    id: sa-glow
+    title: Glow strength
+    type: variable-number-slider
+    default: 1
+    min: 0
+    max: 1.6
+    step: 0.1
+  -
+    id: sa-accent
+    title: Accent colour
+    type: class-select
+    allowEmpty: false
+    default: sa-accent-amber
+    options:
+      - label: Amber
+        value: sa-accent-amber
+      - label: Rose
+        value: sa-accent-rose
+      - label: Sea
+        value: sa-accent-sea
+*/
+
+/* ---------- glow colours ----------
+ * Registered so they fade smoothly. Static FM (2.1+) and Aurora MP3 (1.1+) set --sa-c1..3 on <body>
+ * while it plays, so the glows take on the colours of your noise; otherwise these defaults apply. */
+@property --sa-c1 { syntax: '<color>'; inherits: true; initial-value: rgb(236, 72, 153); }
+@property --sa-c2 { syntax: '<color>'; inherits: true; initial-value: rgb(249, 115, 22); }
+@property --sa-c3 { syntax: '<color>'; inherits: true; initial-value: rgb(180, 83, 9); }
+@property --sa-c4 { syntax: '<color>'; inherits: true; initial-value: rgb(99, 60, 140); }
+body {
+  --sa-glow: 1;
+  transition: --sa-c1 3s ease, --sa-c2 3s ease, --sa-c3 3s ease;
+}
+
+.theme-dark {
+  --sa-base: #120e0b;
+  --accent-h: 34; --accent-s: 100%; --accent-l: 68%;   /* #ffb95c */
+  --background-primary: rgba(22, 17, 13, 0.70);
+  --background-primary-alt: rgba(30, 23, 18, 0.72);
+  --background-secondary: rgba(16, 12, 10, 0.62);
+  --background-secondary-alt: rgba(26, 20, 16, 0.70);
+  --background-modifier-border: rgba(241, 229, 216, 0.10);
+  --background-modifier-border-hover: rgba(241, 229, 216, 0.18);
+  --background-modifier-border-focus: rgba(255, 185, 92, 0.45);
+  --background-modifier-hover: rgba(241, 229, 216, 0.06);
+  --background-modifier-active-hover: rgba(255, 185, 92, 0.14);
+  --background-modifier-form-field: rgba(255, 255, 255, 0.05);
+  --background-modifier-cover: rgba(10, 7, 5, 0.6);
+  --text-normal: #f1e5d8;
+  --text-muted: #cdbba8;
+  --text-faint: #9c8a78;
+  --text-on-accent: #3d2400;
+  --text-selection: rgba(255, 185, 92, 0.24);
+  --text-highlight-bg: rgba(255, 185, 92, 0.28);
+  --interactive-normal: rgba(255, 255, 255, 0.07);
+  --interactive-hover: rgba(255, 255, 255, 0.11);
+  --divider-color: rgba(241, 229, 216, 0.08);
+  --titlebar-background: transparent;
+  --titlebar-background-focused: transparent;
+  --tab-container-background: transparent;
+  --ribbon-background: rgba(14, 10, 8, 0.55);
+  --ribbon-background-collapsed: rgba(14, 10, 8, 0.55);
+  --code-background: rgba(0, 0, 0, 0.28);
+  --code-normal: #f1e5d8;
+  --blockquote-border-color: rgba(255, 185, 92, 0.55);
+  --table-header-background: rgba(255, 255, 255, 0.04);
+  --h1-color: #ffd7a8; --h2-color: #ffc98a; --h3-color: #f6b97a; --h4-color: #eaa98a; --h5-color: #e39aa8; --h6-color: #cdbba8;
+  --tag-background: rgba(236, 72, 153, 0.14); --tag-color: #f5a3c7; --tag-border-color: rgba(236, 72, 153, 0.22);
+  --scrollbar-thumb-bg: rgba(241, 229, 216, 0.14);
+  --scrollbar-active-thumb-bg: rgba(241, 229, 216, 0.24);
+  --sa-glow-alpha: 0.55;
+}
+
+/* accent choices (Style Settings) */
+.theme-dark.sa-accent-rose { --accent-h: 330; --accent-s: 85%; --accent-l: 72%; --text-on-accent: #3d0a22; }
+.theme-dark.sa-accent-sea  { --accent-h: 172; --accent-s: 60%; --accent-l: 58%; --text-on-accent: #04241f; }
+
+/* ---------- the aurora ---------- */
+body.theme-dark, body.theme-light { background-color: var(--sa-base); }
+body::before {
+  content: "";
+  position: fixed;
+  inset: -25%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: calc(var(--sa-glow-alpha) * var(--sa-glow));
+  background:
+    radial-gradient(38% 34% at 22% 28%, color-mix(in srgb, var(--sa-c1) 90%, transparent), transparent 70%),
+    radial-gradient(42% 38% at 78% 36%, color-mix(in srgb, var(--sa-c2) 85%, transparent), transparent 70%),
+    radial-gradient(40% 36% at 46% 82%, color-mix(in srgb, var(--sa-c3) 90%, transparent), transparent 70%),
+    radial-gradient(34% 30% at 86% 86%, color-mix(in srgb, var(--sa-c4) 80%, transparent), transparent 70%);
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+}
+body::before { animation: sa-drift 80s ease-in-out infinite alternate; }
+body.sa-still::before { animation: none; }
+@keyframes sa-drift {
+  0%   { transform: translate3d(-5%, -3%, 0) rotate(0deg) scale(1); }
+  50%  { transform: translate3d(3%, 4%, 0) rotate(6deg) scale(1.06); }
+  100% { transform: translate3d(6%, -2%, 0) rotate(-4deg) scale(1.02); }
+}
+@media (prefers-reduced-motion: reduce) { body::before { animation: none; } }
+.app-container { position: relative; z-index: 1; }
+
+/* ---------- glass details ---------- */
+.workspace-split.mod-root .view-content,
+.workspace-leaf-content[data-type="markdown"] .view-content { background: transparent; }
+.workspace-tab-header.is-active { border-radius: 10px 10px 0 0; }
+.modal, .menu, .suggestion-container, .prompt {
+  background-color: color-mix(in srgb, var(--sa-base) 82%, transparent);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 14px;
+}
+.menu-item.selected:not(.is-disabled):not(.is-label), .suggestion-item.is-selected { border-radius: 8px; }
+
+/* headings: a little warmth, no heavy weights */
+.markdown-rendered h1, .markdown-source-view.mod-cm6 .cm-header-1 { letter-spacing: -0.01em; }
+
+/* checkboxes and buttons use the accent */
+.mod-cta, button.mod-cta { border-radius: 10px; }
+input[type="checkbox"]:checked { background-color: var(--interactive-accent); border-color: var(--interactive-accent); }
+
+/* callouts sit on glass too */
+.callout { background-color: rgba(var(--callout-color), 0.08); border: 1px solid rgba(var(--callout-color), 0.18); border-radius: 12px; }
+
+/* ---------- light: Windows 2000 classic ----------
+ * Silver 3D panels, Tahoma, navy title bars. No drifting glows; when a player is colouring
+ * the theme, the title-bar gradient takes its colours instead. */
+.theme-light {
+  --sa-base: #3a6ea5;
+  --w2k-face: #d4d0c8;
+  --w2k-hi: #ffffff;
+  --w2k-light: #e8e6e1;
+  --w2k-shadow: #808080;
+  --w2k-dark: #404040;
+  --w2k-title-a: #0a246a;
+  --w2k-title-b: #a6caf0;
+  --w2k-raised: inset -1px -1px var(--w2k-dark), inset 1px 1px var(--w2k-hi), inset -2px -2px var(--w2k-shadow), inset 2px 2px var(--w2k-light);
+  --w2k-sunken: inset 1px 1px var(--w2k-shadow), inset -1px -1px var(--w2k-hi), inset 2px 2px var(--w2k-dark), inset -2px -2px var(--w2k-light);
+  --font-interface-theme: Tahoma, "MS Sans Serif", Verdana, sans-serif;
+  --accent-h: 224; --accent-s: 83%; --accent-l: 23%;   /* #0a246a */
+  --background-primary: #ffffff;
+  --background-primary-alt: #f4f3ef;
+  --background-secondary: var(--w2k-face);
+  --background-secondary-alt: #c9c5bc;
+  --background-modifier-border: var(--w2k-shadow);
+  --background-modifier-border-hover: var(--w2k-dark);
+  --background-modifier-border-focus: #0a246a;
+  --background-modifier-hover: rgba(10, 36, 106, 0.08);
+  --background-modifier-active-hover: rgba(10, 36, 106, 0.14);
+  --background-modifier-form-field: #ffffff;
+  --text-normal: #000000;
+  --text-muted: #404040;
+  --text-faint: #808080;
+  --text-on-accent: #ffffff;
+  --text-selection: rgba(10, 36, 106, 0.25);
+  --text-highlight-bg: #ffff80;
+  --interactive-normal: var(--w2k-face);
+  --interactive-hover: #dedbd3;
+  --divider-color: var(--w2k-shadow);
+  --titlebar-background: var(--w2k-face);
+  --titlebar-background-focused: var(--w2k-face);
+  --tab-container-background: var(--w2k-face);
+  --ribbon-background: var(--w2k-face);
+  --ribbon-background-collapsed: var(--w2k-face);
+  --code-background: #f4f3ef;
+  --blockquote-border-color: #0a246a;
+  --h1-color: #0a246a; --h2-color: #0a246a; --h3-color: #000000; --h4-color: #000000; --h5-color: #404040; --h6-color: #404040;
+  --tag-background: #ece9d8; --tag-color: #0a246a; --tag-border-color: var(--w2k-shadow);
+  --radius-s: 0; --radius-m: 0; --radius-l: 0; --radius-xl: 0;
+  --sa-glow-alpha: 0;
+}
+.theme-light.sa-accent-rose { --accent-h: 330; --accent-s: 70%; --accent-l: 32%; --w2k-title-a: #800040; --w2k-title-b: #e8a0c8; }
+.theme-light.sa-accent-sea  { --accent-h: 180; --accent-s: 100%; --accent-l: 25%; --w2k-title-a: #008080; --w2k-title-b: #a0e0e0; }
+/* a player is colouring the theme: the title bars follow it */
+body.theme-light[data-sa-owner] { --w2k-title-a: color-mix(in srgb, var(--sa-c1) 70%, #000); --w2k-title-b: color-mix(in srgb, var(--sa-c2) 55%, #fff); }
+
+body.theme-light::before { display: none; }
+.theme-light .workspace-split.mod-root .view-content,
+.theme-light .workspace-leaf-content[data-type="markdown"] .view-content { background: var(--background-primary); }
+.theme-light .workspace-tab-header.is-active {
+  border-radius: 0;
+  background: linear-gradient(90deg, var(--w2k-title-a), var(--w2k-title-b));
+  color: #ffffff;
+  font-weight: bold;
+}
+.theme-light .workspace-tab-header.is-active .workspace-tab-header-inner-title,
+.theme-light .workspace-tab-header.is-active .workspace-tab-header-inner-icon { color: #ffffff; }
+.theme-light .workspace-tab-header.is-active::before,
+.theme-light .workspace-tab-header.is-active::after { display: none; }
+.theme-light .view-header { background: var(--w2k-face); box-shadow: var(--w2k-raised); }
+.theme-light .workspace-leaf.mod-active .view-header { background: linear-gradient(90deg, var(--w2k-title-a), var(--w2k-title-b)); }
+.theme-light .workspace-leaf.mod-active .view-header-title,
+.theme-light .workspace-leaf.mod-active .view-header-breadcrumb,
+.theme-light .workspace-leaf.mod-active .view-header .clickable-icon { color: #ffffff; }
+.theme-light button:not(.clickable-icon),
+.theme-light .mod-cta,
+.theme-light button.mod-cta {
+  background: var(--w2k-face);
+  color: #000000;
+  border: none;
+  border-radius: 0;
+  box-shadow: var(--w2k-raised);
+}
+.theme-light button:not(.clickable-icon):active { box-shadow: var(--w2k-sunken); }
+.theme-light input[type="text"], .theme-light input[type="search"], .theme-light input[type="number"],
+.theme-light textarea, .theme-light select, .theme-light .dropdown {
+  border: none;
+  border-radius: 0;
+  box-shadow: var(--w2k-sunken);
+  background-color: #ffffff;
+}
+.theme-light .modal, .theme-light .menu, .theme-light .suggestion-container, .theme-light .prompt {
+  background-color: var(--w2k-face);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  border: none;
+  border-radius: 0;
+  box-shadow: var(--w2k-raised), 2px 2px 0 rgba(0, 0, 0, 0.35);
+}
+.theme-light .menu-item.selected:not(.is-disabled):not(.is-label),
+.theme-light .suggestion-item.is-selected { border-radius: 0; background-color: #0a246a; color: #ffffff; }
+.theme-light .callout { border-radius: 0; background-color: #ffffe1; border: 1px solid #000000; }
+.theme-light ::-webkit-scrollbar { width: 16px; height: 16px; background: #e8e6e1; }
+.theme-light ::-webkit-scrollbar-thumb { background: var(--w2k-face); border-radius: 0; box-shadow: var(--w2k-raised); }

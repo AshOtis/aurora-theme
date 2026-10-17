@@ -1,0 +1,41 @@
+# Attaches theme.css and manifest.json when you publish a GitHub release, with signed
+# build provenance (artifact attestations).
+# Usage: bump "version" in manifest.json, commit, then create a release whose tag is
+# exactly that version (e.g. 1.0.1). Don't upload files — this does it.
+name: Release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write       # upload release assets
+  id-token: write       # sign the attestation
+  attestations: write   # store the attestation
+
+jobs:
+  attach:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name }}
+
+      - name: Check tag matches manifest version
+        run: |
+          v=$(python3 -c "import json;print(json.load(open('manifest.json'))['version'])")
+          if [ "$v" != "${{ github.event.release.tag_name }}" ]; then
+            echo "Tag ${{ github.event.release.tag_name }} does not match manifest version $v"; exit 1
+          fi
+
+      - name: Attest build provenance
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: |
+            theme.css
+            manifest.json
+
+      - name: Upload release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload "${{ github.event.release.tag_name }}" theme.css manifest.json --clobber
