@@ -119,6 +119,11 @@ body.sa-still::before { animation: none; }
 .app-container { position: relative; z-index: 1; }
 
 /* ---------- glass details ---------- */
+/* the right sidebar's tab bar (plugin icons) matches the dark top of the player panels below it */
+.theme-dark .mod-right-split .workspace-tab-header-container {
+  background-color: color-mix(in srgb, var(--sa-c1) 5%, #101216);
+}
+
 .workspace-split.mod-root .view-content,
 .workspace-leaf-content[data-type="markdown"] .view-content { background: transparent; }
 .workspace-tab-header.is-active { border-radius: 10px 10px 0 0; }

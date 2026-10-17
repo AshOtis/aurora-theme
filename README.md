@@ -10,7 +10,7 @@ The glows can follow what you're listening to. Press play in one of these plugin
 
 - **Static FM:** the colours of your noise mix.
 - **Aurora MP3:** the colours of the album cover.
-- **Hi-Fi Tuner:** colours that suit the station's genre.
+- **Hi-Fi Tuner:** the colours of its globe colour way (blue, brown, terminal or aurora).
 
 The colours change only when you press play, and stay when you pause. Each plugin has a setting to turn this off. With no player running, the theme uses its own rose and amber glows.
 
