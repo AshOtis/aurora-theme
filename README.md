@@ -2,11 +2,7 @@
 
 A warm, dark Obsidian theme with soft glows drifting behind frosted-glass panes, after the Aurora look of Static FM. Light mode is a Windows 2000 classic look.
 
-![Static Aurora glowing gold with an album cover](docs/screenshot-gold.png)
-
-![Static Aurora glowing rose](docs/screenshot-rose.png)
-
-![Static Aurora glowing green](docs/screenshot-green.png)
+![Static Aurora in three colours, following the album cover that's playing](docs/screenshot-stack.png)
 
 *The same window three times: the glows follow the cover art of whatever Aurora MP3 is playing.*
 
