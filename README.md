@@ -36,7 +36,7 @@ The glows also stop drifting when your system asks for reduced motion.
 
 ## Support
 
-If you enjoy it, you can [buy me a coffee](https://buymeacoffee.com/ashotis). Questions or problems: open an issue, or email Hello@utilitiz.net.
+If you enjoy it, you can [buy me a coffee](https://buymeacoffee.com/ashotis). Found a bug or have an idea? [Open an issue](https://github.com/AshOtis/aurora-theme/issues). It's the best way to reach me, and every report gets read.
 
 ## License
 
