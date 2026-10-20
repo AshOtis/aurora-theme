@@ -14,6 +14,12 @@ settings:
     default: false
     addCommand: true
   -
+    id: sa-no-grain
+    title: Turn off film grain
+    description: A faint grain over the glows hides banding (visible steps in the colour fades). Turn it off for perfectly clean colour.
+    type: class-toggle
+    default: false
+  -
     id: sa-glow
     title: Glow strength
     type: variable-number-slider
@@ -116,6 +122,18 @@ body.sa-still::before { animation: none; }
   100% { transform: translate3d(6%, -2%, 0) rotate(-4deg) scale(1.02); }
 }
 @media (prefers-reduced-motion: reduce) { body::before { animation: none; } }
+/* a whisper of film grain over the glows: breaks up the visible steps (banding) in the soft gradients */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+body.sa-no-grain::after { display: none; }
 .app-container { position: relative; z-index: 1; }
 
 /* ---------- glass details ---------- */

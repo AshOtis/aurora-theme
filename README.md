@@ -40,4 +40,4 @@ If you enjoy it, you can [buy me a coffee](https://buymeacoffee.com/ashotis). Fo
 
 ## License
 
-[MIT](LICENSE) © AshOtis
+[GNU AGPL v3 or later](LICENSE) © AshOtis
