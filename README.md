@@ -1,6 +1,6 @@
 # Static Aurora
 
-A warm, dark Obsidian theme with soft glows drifting behind frosted-glass panes, after the Aurora look of Static FM. Light mode is a Windows 2000 classic look.
+A warm, dark Obsidian theme with soft glows drifting behind frosted-glass panes, after the Aurora look of Static FM. Light mode (Daylight) is a flat warm beige.
 
 ![Static Aurora in three colours, following the album cover that's playing](docs/screenshot-stack.png)
 
@@ -16,9 +16,9 @@ The glows can follow what you're listening to. Press play in one of these plugin
 
 The colours change only when you press play, and stay when you pause. Each plugin has a setting to turn this off. With no player running, the theme uses its own rose and amber glows.
 
-## Light mode: Windows 2000 classic
+## Light mode: Daylight
 
-Silver 3D panels, Tahoma, white pages and navy-to-blue title bars. While a player is colouring the theme, the title bars take its colours instead.
+A flat, warm beige: solid panels, no glow and no glass, with amber, rose or sea accents. Board plugins sit on the same beige, and an optional **Classic 2000** style (silver 3D panels, Tahoma, navy title bars) is in Style Settings.
 
 ## Settings
 
@@ -27,6 +27,7 @@ With the [Style Settings](https://github.com/mgmeyers/obsidian-style-settings) p
 - **Still background:** stop the glows drifting. There's also a command for it.
 - **Glow strength:** from off to extra bright.
 - **Accent colour:** amber, rose or sea.
+- **Light mode - Classic 2000:** an alternative retro light look.
 
 The glows also stop drifting when your system asks for reduced motion.
 

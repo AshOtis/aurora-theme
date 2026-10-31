@@ -1,5 +1,5 @@
 /* Static Aurora — an Obsidian theme by AshOtis, after the "Aurora" look of Static FM.
- * Warm dark glass over slowly drifting glows (dark), and a Windows 2000 classic look (light).
+ * Warm dark glass over slowly drifting glows (dark), and Daylight: flat warm beige (light). Classic 2000 is an opt-in light style.
  * Optional settings via the Style Settings plugin. With Static FM 2.1+ playing, the glows take on your noise colours. */
 
 /* @settings
@@ -40,6 +40,12 @@ settings:
         value: sa-accent-rose
       - label: Sea
         value: sa-accent-sea
+  -
+    id: sa-classic
+    title: Light mode - Classic 2000
+    description: Swap light mode for the Windows 2000 look (silver bevels, Tahoma, navy title bars).
+    type: class-toggle
+    default: false
 */
 
 /* ---------- glow colours ----------
@@ -164,10 +170,73 @@ input[type="checkbox"]:checked { background-color: var(--interactive-accent); bo
 /* callouts sit on glass too */
 .callout { background-color: rgba(var(--callout-color), 0.08); border: 1px solid rgba(var(--callout-color), 0.18); border-radius: 12px; }
 
-/* ---------- light: Windows 2000 classic ----------
+/* ---------- light: Daylight ----------
+ * Flat warm beige: solid panels, no glow, no glass. */
+.theme-light {
+  --sa-base: #e3dfd4;
+  --accent-h: 26; --accent-s: 90%; --accent-l: 33%;   /* amber */
+  --background-primary: #e3dfd4;
+  --background-primary-alt: #dad6ca;
+  --background-secondary: #e3dfd4;
+  --background-secondary-alt: #dad6ca;
+  --background-modifier-border: rgba(60, 55, 40, 0.12);
+  --background-modifier-border-hover: rgba(60, 55, 40, 0.20);
+  --background-modifier-border-focus: hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.45);
+  --background-modifier-hover: rgba(60, 55, 40, 0.05);
+  --background-modifier-active-hover: hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.12);
+  --background-modifier-form-field: #f3f1ea;
+  --background-modifier-cover: rgba(227, 223, 212, 0.70);
+  --text-normal: #3b352c;
+  --text-muted: #6b6055;
+  --text-faint: #776c5f;
+  --text-on-accent: #ffffff;
+  --text-selection: hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.22);
+  --text-highlight-bg: rgba(251, 191, 36, 0.40);
+  --interactive-normal: #ebe8df;
+  --interactive-hover: #f4f2ec;
+  --divider-color: rgba(60, 55, 40, 0.09);
+  --titlebar-background: #d7d3c8;
+  --titlebar-background-focused: #d7d3c8;
+  --tab-container-background: #d7d3c8;
+  --ribbon-background: #d7d3c8;
+  --ribbon-background-collapsed: #d7d3c8;
+  --code-background: rgba(60, 55, 40, 0.06);
+  --code-normal: #3b352c;
+  --blockquote-border-color: hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.6);
+  --table-header-background: rgba(60, 55, 40, 0.04);
+  --h1-color: #3b352c; --h2-color: #463e33; --h3-color: #9a4507; --h4-color: #4a3f34; --h5-color: #6b6055; --h6-color: #857a6d;
+  --tag-background: hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.10); --tag-color: hsl(var(--accent-h), var(--accent-s), var(--accent-l)); --tag-border-color: hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.22);
+  --scrollbar-thumb-bg: rgba(60, 55, 40, 0.18);
+  --scrollbar-active-thumb-bg: rgba(60, 55, 40, 0.30);
+  --sa-glow-alpha: 0;
+}
+.theme-light.sa-accent-rose { --accent-h: 333; --accent-s: 78%; --accent-l: 40%; --h3-color: #a3154f; }
+.theme-light.sa-accent-sea  { --accent-h: 175; --accent-s: 77%; --accent-l: 22%; --h3-color: #0b5f58; }
+
+/* right sidebar tab bar: frosted, so the glow runs edge to edge */
+.theme-light .workspace-tab-header-container,
+.theme-light .mod-right-split .workspace-tab-header-container {
+  background-color: #d7d3c8;
+}
+/* callouts: an accent edge on light glass */
+.theme-light .callout { background-color: rgba(250, 249, 244, 0.60); border-left: 3px solid rgba(var(--callout-color), 0.85); }
+.theme-light .mod-cta, .theme-light button.mod-cta { color: var(--text-on-accent); }
+
+/* the vault switcher at the bottom of the left sidebar matches the frame */
+.theme-light .workspace-sidedock-vault-profile { background-color: #d7d3c8; }
+
+/* flat: no glows, no grain, solid dialogs */
+body.theme-light::before, body.theme-light::after { display: none; }
+.theme-light .modal, .theme-light .menu, .theme-light .suggestion-container, .theme-light .prompt {
+  background-color: #efede5;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+/* ---------- optional: Windows 2000 classic (light mode, Style Settings toggle) ----------
  * Silver 3D panels, Tahoma, navy title bars. No drifting glows; when a player is colouring
  * the theme, the title-bar gradient takes its colours instead. */
-.theme-light {
+body.theme-light.sa-classic {
   --sa-base: #3a6ea5;
   --w2k-face: #d4d0c8;
   --w2k-hi: #ffffff;
@@ -211,47 +280,47 @@ input[type="checkbox"]:checked { background-color: var(--interactive-accent); bo
   --radius-s: 0; --radius-m: 0; --radius-l: 0; --radius-xl: 0;
   --sa-glow-alpha: 0;
 }
-.theme-light.sa-accent-rose { --accent-h: 330; --accent-s: 70%; --accent-l: 32%; --w2k-title-a: #800040; --w2k-title-b: #e8a0c8; }
-.theme-light.sa-accent-sea  { --accent-h: 180; --accent-s: 100%; --accent-l: 25%; --w2k-title-a: #008080; --w2k-title-b: #a0e0e0; }
+body.theme-light.sa-classic.sa-accent-rose { --accent-h: 330; --accent-s: 70%; --accent-l: 32%; --w2k-title-a: #800040; --w2k-title-b: #e8a0c8; }
+body.theme-light.sa-classic.sa-accent-sea  { --accent-h: 180; --accent-s: 100%; --accent-l: 25%; --w2k-title-a: #008080; --w2k-title-b: #a0e0e0; }
 /* a player is colouring the theme: the title bars follow it */
-body.theme-light[data-sa-owner] { --w2k-title-a: color-mix(in srgb, var(--sa-c1) 70%, #000); --w2k-title-b: color-mix(in srgb, var(--sa-c2) 55%, #fff); }
+body.theme-light.sa-classic[data-sa-owner] { --w2k-title-a: color-mix(in srgb, var(--sa-c1) 70%, #000); --w2k-title-b: color-mix(in srgb, var(--sa-c2) 55%, #fff); }
 
-body.theme-light::before { display: none; }
-.theme-light .workspace-split.mod-root .view-content,
-.theme-light .workspace-leaf-content[data-type="markdown"] .view-content { background: var(--background-primary); }
-.theme-light .workspace-tab-header.is-active {
+body.theme-light.sa-classic::before { display: none; }
+body.theme-light.sa-classic .workspace-split.mod-root .view-content,
+body.theme-light.sa-classic .workspace-leaf-content[data-type="markdown"] .view-content { background: var(--background-primary); }
+body.theme-light.sa-classic .workspace-tab-header.is-active {
   border-radius: 0;
   background: linear-gradient(90deg, var(--w2k-title-a), var(--w2k-title-b));
   color: #ffffff;
   font-weight: bold;
 }
-.theme-light .workspace-tab-header.is-active .workspace-tab-header-inner-title,
-.theme-light .workspace-tab-header.is-active .workspace-tab-header-inner-icon { color: #ffffff; }
-.theme-light .workspace-tab-header.is-active::before,
-.theme-light .workspace-tab-header.is-active::after { display: none; }
-.theme-light .view-header { background: var(--w2k-face); box-shadow: var(--w2k-raised); }
-.theme-light .workspace-leaf.mod-active .view-header { background: linear-gradient(90deg, var(--w2k-title-a), var(--w2k-title-b)); }
-.theme-light .workspace-leaf.mod-active .view-header-title,
-.theme-light .workspace-leaf.mod-active .view-header-breadcrumb,
-.theme-light .workspace-leaf.mod-active .view-header .clickable-icon { color: #ffffff; }
-.theme-light button:not(.clickable-icon),
-.theme-light .mod-cta,
-.theme-light button.mod-cta {
+body.theme-light.sa-classic .workspace-tab-header.is-active .workspace-tab-header-inner-title,
+body.theme-light.sa-classic .workspace-tab-header.is-active .workspace-tab-header-inner-icon { color: #ffffff; }
+body.theme-light.sa-classic .workspace-tab-header.is-active::before,
+body.theme-light.sa-classic .workspace-tab-header.is-active::after { display: none; }
+body.theme-light.sa-classic .view-header { background: var(--w2k-face); box-shadow: var(--w2k-raised); }
+body.theme-light.sa-classic .workspace-leaf.mod-active .view-header { background: linear-gradient(90deg, var(--w2k-title-a), var(--w2k-title-b)); }
+body.theme-light.sa-classic .workspace-leaf.mod-active .view-header-title,
+body.theme-light.sa-classic .workspace-leaf.mod-active .view-header-breadcrumb,
+body.theme-light.sa-classic .workspace-leaf.mod-active .view-header .clickable-icon { color: #ffffff; }
+body.theme-light.sa-classic button:not(.clickable-icon),
+body.theme-light.sa-classic .mod-cta,
+body.theme-light.sa-classic button.mod-cta {
   background: var(--w2k-face);
   color: #000000;
   border: none;
   border-radius: 0;
   box-shadow: var(--w2k-raised);
 }
-.theme-light button:not(.clickable-icon):active { box-shadow: var(--w2k-sunken); }
-.theme-light input[type="text"], .theme-light input[type="search"], .theme-light input[type="number"],
-.theme-light textarea, .theme-light select, .theme-light .dropdown {
+body.theme-light.sa-classic button:not(.clickable-icon):active { box-shadow: var(--w2k-sunken); }
+body.theme-light.sa-classic input[type="text"], body.theme-light.sa-classic input[type="search"], body.theme-light.sa-classic input[type="number"],
+body.theme-light.sa-classic textarea, body.theme-light.sa-classic select, body.theme-light.sa-classic .dropdown {
   border: none;
   border-radius: 0;
   box-shadow: var(--w2k-sunken);
   background-color: #ffffff;
 }
-.theme-light .modal, .theme-light .menu, .theme-light .suggestion-container, .theme-light .prompt {
+body.theme-light.sa-classic .modal, body.theme-light.sa-classic .menu, body.theme-light.sa-classic .suggestion-container, body.theme-light.sa-classic .prompt {
   background-color: var(--w2k-face);
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
@@ -259,8 +328,64 @@ body.theme-light::before { display: none; }
   border-radius: 0;
   box-shadow: var(--w2k-raised), 2px 2px 0 rgba(0, 0, 0, 0.35);
 }
-.theme-light .menu-item.selected:not(.is-disabled):not(.is-label),
-.theme-light .suggestion-item.is-selected { border-radius: 0; background-color: #0a246a; color: #ffffff; }
-.theme-light .callout { border-radius: 0; background-color: #ffffe1; border: 1px solid #000000; }
-.theme-light ::-webkit-scrollbar { width: 16px; height: 16px; background: #e8e6e1; }
-.theme-light ::-webkit-scrollbar-thumb { background: var(--w2k-face); border-radius: 0; box-shadow: var(--w2k-raised); }
+body.theme-light.sa-classic .menu-item.selected:not(.is-disabled):not(.is-label),
+body.theme-light.sa-classic .suggestion-item.is-selected { border-radius: 0; background-color: #0a246a; color: #ffffff; }
+body.theme-light.sa-classic .callout { border-radius: 0; background-color: #ffffe1; border: 1px solid #000000; }
+body.theme-light.sa-classic ::-webkit-scrollbar { width: 16px; height: 16px; background: #e8e6e1; }
+body.theme-light.sa-classic ::-webkit-scrollbar-thumb { background: var(--w2k-face); border-radius: 0; box-shadow: var(--w2k-raised); }
+body.theme-light.sa-classic .mod-right-split .workspace-tab-header-container { background-color: var(--w2k-face); }
+
+/* Aurora Clock's "glow behind notes" is built for dark mode; on light, keep the notes flat. */
+body.theme-light.ac-notes .workspace-leaf-content[data-type="markdown"]::before,
+body.theme-light.ac-notes .workspace-leaf-content[data-type="markdown"]::after { display: none; }
+
+/* Board plugins (Repo Board, Daily Board, Writers Board, vDocs) paint their own dark background for dark mode.
+ * On light, drop it and use the same flat beige as the sidebars. */
+body.theme-light .rb-bg-host::before, body.theme-light .rb-bg-host::after,
+body.theme-light .db-bg-host::before, body.theme-light .db-bg-host::after,
+body.theme-light .wb-bg-host::before, body.theme-light .wb-bg-host::after,
+body.theme-light .vdo-bg-host::before, body.theme-light .vdo-bg-host::after { display: none; }
+body.theme-light .rb-bg-host, body.theme-light .db-bg-host,
+body.theme-light .wb-bg-host, body.theme-light .vdo-bg-host { background-color: var(--background-secondary); }
+
+/* Board accents: in light mode the boards use the theme accent (amber, rose or sea), not the colours of whatever is playing */
+body.theme-light .db-bg-aurora, body.theme-light .rb-bg-aurora, body.theme-light .wb-bg-aurora, body.theme-light .vdo-bg-aurora {
+  --sa-ac: hsl(var(--accent-h), var(--accent-s), var(--accent-l));
+  --sa-ac-2: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) + 14%));
+  --sa-ac-text: hsl(var(--accent-h), var(--accent-s), calc(var(--accent-l) - 8%));
+  --db-a1: var(--sa-ac); --db-a2: var(--sa-ac-2); --db-a3: var(--sa-ac); --db-a4: var(--sa-ac-2);
+  --rb-a1: var(--sa-ac); --rb-a2: var(--sa-ac-2); --rb-a3: var(--sa-ac); --rb-a4: var(--sa-ac-2);
+  --wb-a1: var(--sa-ac); --wb-a2: var(--sa-ac-2); --wb-a3: var(--sa-ac); --wb-a4: var(--sa-ac-2);
+  --vdo-a1: var(--sa-ac); --vdo-a2: var(--sa-ac-2); --vdo-a3: var(--sa-ac); --vdo-a4: var(--sa-ac-2);
+}
+/* accent text that the boards lighten with white (made for dark) becomes a darker accent on beige */
+body.theme-light .db-bg-aurora .db-day.is-today .db-dn, body.theme-light .db-bg-aurora .db-entry.is-today a.db-etitle,
+body.theme-light .db-bg-aurora .db-prompt, body.theme-light .db-prompt,
+body.theme-light .rb-bg-aurora .rb-sync .rb-busy { color: var(--sa-ac-text, var(--text-accent)); }
+
+/* Board cards: a beige midway between the page and the frame */
+body.theme-light .rb-bg-host .rb-card, body.theme-light .rb-bg-host .rb-stat, body.theme-light .rb-bg-host .rb-panel,
+body.theme-light .wb-bg-host .wb-card, body.theme-light .wb-bg-host .wb-stat,
+body.theme-light .db-bg-host .db-day:not(.is-empty):not(.is-future), body.theme-light .db-bg-host .db-stat,
+body.theme-light .db-bg-host .db-entry, body.theme-light .db-bg-host .db-tday {
+  background: #d7d3c8;
+  border: 1px solid rgba(60, 55, 40, 0.12);
+  box-shadow: none;
+}
+
+/* Writers Board: the writing area is a light beige, a step lighter than the page, so it reads as paper on the card */
+body.theme-light .wb textarea.wb-box, body.theme-light .wb .wb-done { background: #ebe8de; color: var(--text-normal); border: 1px solid rgba(60, 55, 40, 0.12); }
+body.theme-light .wb .wb-done-t { color: var(--text-normal); }
+
+/* Writers Board: its gold and green are pastels made for dark; deepen them so they read on beige */
+body.theme-light .wb, body.theme-light .modal.wb-ach-modal { --wb-gold: #7d5200; --wb-ok: #17643e; }
+
+/* Tabs: let the tab strip use the full width. (A leftover snippet caps it at 200px, so tabs shrink to "Re...", "Da..." far too early.) */
+body .workspace-tab-header-container-inner { max-width: none !important; }
+
+/* Left and right sidebar panels: the same mid beige as the board cards */
+body.theme-light:not(.sa-classic) .workspace-split.mod-left-split,
+body.theme-light:not(.sa-classic) .workspace-split.mod-right-split { --background-secondary: #d7d3c8; background-color: #d7d3c8; }
+
+/* Frame edges: the lines between panels use the same tone as the top and left frame borders */
+body.theme-light:not(.sa-classic) .workspace-leaf-resize-handle { --divider-color: #bdb9ad; }
